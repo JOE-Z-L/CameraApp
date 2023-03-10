@@ -1,19 +1,24 @@
+.container {
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
 
+}
 
 .camera {
-    position: fixed;
+    position: relative;
     top: 80px;
     left: 0;
     height: calc(100vh - 80px);
     width: 50%;
     z-index: 1;
+    margin-left: 1%;
 }
 
 .gallery {
-    height: 100%;
-    width: 50%;
+    height: calc(100vh - 80px);
+    width: 40%;
     overflow-y: scroll;
     overflow-x: hidden;
-    margin-left: 50%;
+    margin-left: 50px;
     position: relative;
+    margin-top: 5%;
 }
