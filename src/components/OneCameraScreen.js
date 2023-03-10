@@ -9,12 +9,7 @@ const OneCamera = () => {
   const [images, setImages] = useState([]);
 
   return (
-    <Flex
-      className="container"
-      height="100vh"
-      alignItems="center"
-      justifyContent="center"
-    >
+    <Flex className="container" height="100vh" bg="white">
       <Box className="camera">
         <WebcamImage setImages={setImages} />
       </Box>
