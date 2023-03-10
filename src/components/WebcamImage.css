@@ -1,0 +1,41 @@
+.Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0 10px;
+
+}
+
+
+
+.WebcamStream {
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.3),
+    0px 0px 10px rgba(255, 255, 255, 0.3),
+    0px 0px 20px rgba(0, 0, 0, 0.1) inset;
+    height: 90vh;
+    width: 90vh;
+    background-color: #F5F5F5;
+    background-image: linear-gradient(45deg,
+    rgba(255, 255, 255, 0.05) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.05) 75%,
+    transparent 75%,
+    transparent),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+.Select {
+    background-color: #EDF2F7;
+    border: none;
+    outline: 2px solid #CBD5E0;
+    padding: 0.5rem;
+}
+
+.Select:focus {
+    outline: 2px solid #7F9CF5;
+}

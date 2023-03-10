@@ -37,15 +37,9 @@ const Header = () => {
               spacing={4}
               display={{ base: "none", md: "flex" }}
             >
-              <Link href="/" isExternal>
-                One Camera
-              </Link>
-              <Link href="/2" isExternal>
-                Two Cameras{" "}
-              </Link>
-              <Link href="/4" isExternal>
-                Four Cameras{" "}
-              </Link>
+              <Link href="/">One Camera</Link>
+              <Link href="/2">Two Cameras </Link>
+              <Link href="/4">Four Cameras </Link>
             </HStack>
           </HStack>
           <Flex alignItems={"center"}>
@@ -80,8 +74,6 @@ const Header = () => {
           </Box>
         ) : null}
       </Box>
-
-      <Box p={4}>Camera App</Box>
     </>
   );
 };
