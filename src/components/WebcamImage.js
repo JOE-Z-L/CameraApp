@@ -1,36 +1,16 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
-import {
-  Box,
-  Card,
-  CardBody,
-  CardFooter,
-  ButtonGroup,
-  Button,
-  Img,
-  Flex,
-  Select,
-  useToast,
-  Circle,
-  Icon,
-  SimpleGrid,
-  HStack,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Select, Circle, HStack } from "@chakra-ui/react";
 import "./WebcamImage.css";
-import { AiOutlinePoweroff } from "react-icons/ai";
-function WebcamImage() {
-  const [img, setImg] = useState([]);
+
+function WebcamImage({ setImages }) {
   const webcamRef = useRef(null);
   const [devices, setDevices] = useState([]);
   const [selectedDeviceId, setSelectedDeviceId] = useState("");
-  const [isCameraOn, setIsCameraOn] = useState(true);
-
-  const toast = useToast();
 
   const videoConstraints = {
-    width: 500,
-    height: 500,
-    facingMode: selectedDeviceId || "user",
+    width: 420,
+    height: 420,
     deviceId: selectedDeviceId,
   };
 
@@ -50,42 +30,26 @@ function WebcamImage() {
   ///CAPTURE E DOWNLOAD
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
-    setImg((prevImg) => {
-      if (prevImg.length >= 4) {
-        prevImg.shift(); // remove first image if array has more than 4 elements
-      }
-      return [...prevImg, imageSrc];
+    setImages((prevImg) => {
+      const updatedImages = [...prevImg, imageSrc];
+      setImages(updatedImages); // update images state in parent component
+      return updatedImages;
     });
-  }, [webcamRef]);
-
-  const handleDownload = useCallback((src) => {
-    const link = document.createElement("a");
-    link.href = src;
-    link.download = "image.jpeg";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }, []);
-
-  const toggleCamera = () => {
-    setIsCameraOn((prevState) => !prevState);
-  };
+  }, [webcamRef, setImages]);
 
   return (
     <Flex as="nav" p="10px" alignItems="center" gap="10px" mb="40px">
       <Box flexShrink={0} flexGrow={0} position="relative">
-        {isCameraOn && (
-          <Webcam
-            audio={false}
-            mirrored={true}
-            height={720}
-            width={1280}
-            ref={webcamRef}
-            screenshotFormat="image/jpeg"
-            videoConstraints={videoConstraints}
-            className="WebcamStream"
-          />
-        )}
+        <Webcam
+          audio={false}
+          mirrored={true}
+          height={720}
+          width={1280}
+          ref={webcamRef}
+          screenshotFormat="image/jpeg"
+          videoConstraints={videoConstraints}
+          className="WebcamStream"
+        />
 
         <HStack direction="row" spacing={4} align="center" my={2}>
           {devices.length > 0 && (
@@ -121,55 +85,14 @@ function WebcamImage() {
           >
             {/* You can add any content inside the Circle component */}
           </Circle>
-          <Button variant="solid" colorScheme="red" onClick={() => setImg([])}>
+          <Button
+            variant="solid"
+            colorScheme="red"
+            onClick={() => setImages([])}
+          >
             Clear All
           </Button>
         </HStack>
-      </Box>
-      <Box>
-        <SimpleGrid
-          columns={{ sm: 2, md: 3, lg: 4 }}
-          spacing="4"
-          minChildWidth="300px"
-        >
-          {img.map((src, index) => (
-            <Card key={index}>
-              <CardBody>
-                <Img
-                  key={index}
-                  src={src}
-                  borderRadius="lg"
-                  boxShadow="xl"
-                  rounded="md"
-                />
-              </CardBody>
-              <CardFooter>
-                <ButtonGroup spacing="2">
-                  <Button
-                    variant="solid"
-                    colorScheme="orange"
-                    onClick={() => handleDownload(src)}
-                  >
-                    Download
-                  </Button>
-                  <Button
-                    onClick={() =>
-                      toast({
-                        title: "Button Disabled",
-                        description: "This feature is unavailable",
-                        status: "warning",
-                        duration: 9000,
-                        isClosable: true,
-                      })
-                    }
-                  >
-                    Edit
-                  </Button>
-                </ButtonGroup>
-              </CardFooter>
-            </Card>
-          ))}
-        </SimpleGrid>
       </Box>
     </Flex>
   );
