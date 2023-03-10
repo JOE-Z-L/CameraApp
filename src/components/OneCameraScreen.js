@@ -9,11 +9,11 @@ const OneCamera = () => {
   const [images, setImages] = useState([]);
 
   return (
-    <Flex className="container" height="100vh" bg="white">
+    <Flex className="container" height="110vh" bg="white">
       <Box className="camera">
         <WebcamImage setImages={setImages} />
       </Box>
-      <Spacer width="40px" />
+      <Spacer width="10px" />
       <Box className="gallery">
         <ScreenShotGallery images={images} />
       </Box>
