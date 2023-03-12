@@ -1,16 +1,25 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
-import { Box, Button, Flex, Select, Circle, HStack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Select,
+  Flex,
+  HStack,
+  SimpleGrid,
+} from "@chakra-ui/react";
 import "./WebcamImage.css";
+import { Icon } from "@chakra-ui/icons";
+import { SlCamera } from "react-icons/sl";
 
-function WebcamImage({ setImages }) {
+function WebcamImage({ setImages, width = 400, height = 400 }) {
   const webcamRef = useRef(null);
   const [devices, setDevices] = useState([]);
   const [selectedDeviceId, setSelectedDeviceId] = useState("");
 
   const videoConstraints = {
-    width: 420,
-    height: 420,
+    width: width,
+    height: height,
     deviceId: selectedDeviceId,
   };
 
@@ -38,63 +47,69 @@ function WebcamImage({ setImages }) {
   }, [webcamRef, setImages]);
 
   return (
-    <Flex as="nav" p="10px" alignItems="center" gap="10px" mb="40px">
-      <Box flexShrink={0} flexGrow={0} position="relative">
+    <SimpleGrid columns={1}>
+      <Box height="100%" position="relative">
         <Webcam
           audio={false}
           mirrored={true}
-          height={720}
-          width={1280}
+          height={height}
+          width={width}
           ref={webcamRef}
           screenshotFormat="image/jpeg"
           videoConstraints={videoConstraints}
           className="WebcamStream"
         />
-
-        <HStack direction="row" spacing={4} align="center" my={2}>
-          {devices.length > 0 && (
-            <Select
-              className="Select"
-              variant="filled"
-              placeholder="Select option"
-              value={selectedDeviceId}
-              onChange={handleDeviceChange}
-            >
-              {devices.map((device) => (
-                <option key={device.deviceId} value={device.deviceId}>
-                  {device.label || `Device ${device.deviceId}`}
-                </option>
-              ))}
-            </Select>
-          )}
-
-          <Circle
-            position="absolute"
-            bottom="100px"
-            left="50%"
-            transform="translateX(-50%)"
-            size="80px"
-            borderWidth="4px"
-            borderColor="whitesmoke"
-            bg="transparent"
-            color="white"
-            boxShadow="md"
-            onClick={capture}
-            _hover={{ bg: "red.500", color: "white" }}
-            _active={{ bg: "red.700", color: "white" }}
-          >
-            {/* You can add any content inside the Circle component */}
-          </Circle>
-          <Button
-            variant="solid"
-            colorScheme="red"
-            onClick={() => setImages([])}
-          >
-            Clear All
-          </Button>
-        </HStack>
+        <Flex position="absolute" bottom="2%" w="100%">
+          <HStack bg="transparent" w="100%" justifyContent="space-between">
+            <Box>
+              {devices.length > 0 && (
+                <Select
+                  className="Select"
+                  variant="outline"
+                  borderColor="white"
+                  color="white"
+                  placeholder="Select a Camera"
+                  value={selectedDeviceId}
+                  onChange={handleDeviceChange}
+                  w="100%"
+                  ml={2}
+                >
+                  {devices.map((device) => (
+                    <option key={device.deviceId} value={device.deviceId}>
+                      {device.label || `Device ${device.deviceId}`}
+                    </option>
+                  ))}
+                </Select>
+              )}
+            </Box>
+            <Box flex="1" textAlign="center">
+              <Button
+                variant="outline"
+                borderColor="white"
+                color="white"
+                ml="120px"
+                _hover={{ bg: "red.500", borderColor: "red.500" }}
+                onClick={capture}
+              >
+                <Icon as={SlCamera}></Icon>
+              </Button>
+            </Box>
+            <Box>
+              <Button
+                variant="outline"
+                borderColor="white"
+                color="white"
+                mr="15px"
+                _hover={{ bg: "red.500", borderColor: "red.500" }}
+                onClick={() => setImages([])}
+              >
+                Clear All
+              </Button>
+            </Box>
+          </HStack>
+        </Flex>
       </Box>
-    </Flex>
+    </SimpleGrid>
   );
 }
 

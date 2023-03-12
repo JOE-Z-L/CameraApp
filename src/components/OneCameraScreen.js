@@ -1,7 +1,7 @@
 import React from "react";
 import WebcamImage from "./WebcamImage";
 import ScreenShotGallery from "./ScreenShotGallery";
-import { Box, Flex, Spacer } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { useState } from "react";
 import "./OneCameraScreen.css";
 
@@ -9,12 +9,19 @@ const OneCamera = () => {
   const [images, setImages] = useState([]);
 
   return (
-    <Flex className="container" height="110vh" bg="white">
+    <Flex
+      className="container"
+      height="100vh"
+      bg="white"
+      flex="1"
+      minH="100%"
+      minW="100%"
+      p={10}
+    >
       <Box className="camera">
-        <WebcamImage setImages={setImages} />
+        <WebcamImage setImages={setImages} height={480} width={500} />
       </Box>
-      <Spacer width="10px" />
-      <Box className="gallery">
+      <Box className="gallery" pl={8}>
         <ScreenShotGallery images={images} />
       </Box>
     </Flex>

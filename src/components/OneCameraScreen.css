@@ -5,7 +5,6 @@
 
 .camera {
     position: relative;
-    top: 80px;
     left: 0;
     height: calc(100vh - 80px);
     width: 50%;
@@ -15,10 +14,8 @@
 
 .gallery {
     height: calc(100vh - 80px);
-    width: 40%;
+    width: 50%;
     overflow-y: scroll;
     overflow-x: hidden;
-    margin-left: 50px;
     position: relative;
-    margin-top: 5%;
 }

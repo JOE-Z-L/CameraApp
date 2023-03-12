@@ -7,3 +7,7 @@
     right: 0;
     z-index: 999;
 }
+
+.active .navlink-text {
+    border-bottom: 2px solid #FFB347;
+}

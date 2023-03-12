@@ -1,0 +1,16 @@
+
+.card.active p{
+    display: block;
+}
+
+.card.active{
+    grid-column: 1/ 6;
+    grid-row:1;
+    order:0;
+    height: auto;
+}
+
+.card.is-inactive {
+    grid-column: span 2;
+
+}

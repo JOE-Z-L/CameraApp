@@ -1,19 +1,27 @@
 import React from "react";
 import WebcamImage from "./WebcamImage";
-import { Box, Flex, Spacer } from "@chakra-ui/react";
-import { useState } from "react";
-import "./OneCameraScreen.css";
+import { Box, Flex, SimpleGrid } from "@chakra-ui/react";
+import "./TwoCamerasScreen.css";
 
-const TwoCamerasScreen = () => {
+const TwoCamerasScreen = ({ width, height }) => {
   return (
-    <Flex className="container" height="100vh" bg="white">
-      <Box className="camera">
-        <WebcamImage />
-      </Box>
-      <Spacer width="40px" />
-      <Box className="gallery">
-        <WebcamImage />
-      </Box>
+    <Flex justifyContent="center" alignItems="center">
+      <SimpleGrid
+        columns={2}
+        className="container"
+        height="100vh"
+        bg="white"
+        spacing={2}
+        gap={2}
+        p={10}
+      >
+        <Box>
+          <WebcamImage width={500} height={480} />
+        </Box>
+        <Box>
+          <WebcamImage width={500} height={480} />
+        </Box>
+      </SimpleGrid>
     </Flex>
   );
 };
