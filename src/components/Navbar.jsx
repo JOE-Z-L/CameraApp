@@ -1,50 +1,51 @@
-import {
-  Text,
-  Button,
-  Flex,
-  Box,
-  Heading,
-  Spacer,
-  HStack,
-} from "@chakra-ui/react";
+import { Text, Flex, Heading, HStack } from "@chakra-ui/react";
 import "./NavBar.css";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <Flex
       as="nav"
       p="10px"
-      alignItems="center"
       gap="10px"
       mb="40px"
       className="nav-container"
+      justifyContent="center"
+      alignItems="center"
     >
-      <Heading as="h1">Dojo Tasks</Heading>
-      <Spacer />
-
-      <HStack spacing="20px">
-        <Box bg="gray.200" p="10px">
-          M
-        </Box>
-        <Text>mario@example.com</Text>
-        <Button colorScheme="purple">Logout</Button>
+      <Heading mr="30px" as="h1">
+        CW
+      </Heading>
+      <HStack spacing="20px" fontFamily="Helvetica">
+        <NavLink to="/" className="navlink">
+          <Text
+            fontWeight="thin"
+            borderBottom="2px solid transparent"
+            _hover={{ borderBottom: "2px solid #FFB347" }}
+          >
+            Photos
+          </Text>
+        </NavLink>
+        <NavLink to="/twocameras" className="navlink">
+          <Text
+            fontWeight="thin"
+            borderBottom="2px solid transparent"
+            _hover={{ borderBottom: "2px solid #FFB347" }}
+          >
+            Dual Cameras
+          </Text>
+        </NavLink>
+        <NavLink to="/multicameras" className="navlink">
+          <Text
+            fontWeight="thin"
+            borderBottom="2px solid transparent"
+            _hover={{ borderBottom: "2px solid #FFB347" }}
+          >
+            Multi Camera
+          </Text>
+        </NavLink>
       </HStack>
     </Flex>
-
-    /* <Flex bg="gray.200" justify="space-between" wrap="wrap" gap="2">
-        <Box w="150px" h="50px" bg="red">
-          1
-        </Box>
-        <Box w="150px" h="50px" bg="blue">
-          2
-        </Box>
-        <Box w="150px" h="50px" flexGrow="1" bg="green">
-          3
-        </Box>
-        <Box w="150px" h="50px" flexGrow="2" bg="yellow">
-          4
-        </Box>
-      </Flex>*/
   );
 };
 
