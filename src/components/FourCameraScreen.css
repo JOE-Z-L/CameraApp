@@ -4,10 +4,11 @@
 }
 
 .card.active{
-    grid-column: 1/ 6;
+    grid-column: 1/ 7;
     grid-row:1;
     order:0;
     height: auto;
+    width: 100%;
 }
 
 .card.is-inactive {

@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { Grid, SimpleGrid, Box } from "@chakra-ui/react";
 import "./FourCameraScreen.css";
 import WebcamImage from "./WebcamImage";
-import ScreenShotGallery from "./ScreenShotGallery";
 import MultiShotGallery from "./MuiltShotGallery";
 
 const FourCameraScreen = () => {
@@ -15,9 +14,14 @@ const FourCameraScreen = () => {
   };
 
   return (
-    <SimpleGrid columns={2} spacing={10}>
-      <Box height="80px">
-        <Grid templateColumns="repeat(6, 1fr)" bg="gray.50" gap={6} mt="10%">
+    <SimpleGrid columns={2} spacing={4} height="70%" mt="2%">
+      <Box height="100%">
+        <Grid
+          templateColumns="repeat(6, 1fr)"
+          bg="gray.50"
+          gap={4}
+          height="100%"
+        >
           <motion.div
             className={`card ${activeCard === 0 ? "active" : "is-inactive"}`}
             colSpan={3}
@@ -25,7 +29,7 @@ const FourCameraScreen = () => {
             layout
             transition={{ duration: 0.5, ease: "easeInOut" }}
           >
-            <WebcamImage setImages={setImages} height={480} width={500} />
+            <WebcamImage setImages={setImages} height="100%" width="100%" />
           </motion.div>
           <motion.div
             className={`card ${activeCard === 1 ? "active" : "is-inactive"}`}
@@ -35,7 +39,7 @@ const FourCameraScreen = () => {
             transition={{ duration: 0.5, ease: "easeInOut" }}
           >
             {" "}
-            <WebcamImage setImages={setImages} height={480} width={500} />
+            <WebcamImage setImages={setImages} height="100%" width="100%" />
           </motion.div>
           <motion.div
             className={`card ${activeCard === 2 ? "active" : "is-inactive"}`}
@@ -45,7 +49,7 @@ const FourCameraScreen = () => {
             transition={{ duration: 0.5, ease: "easeInOut" }}
           >
             {" "}
-            <WebcamImage setImages={setImages} height={480} width={500} />
+            <WebcamImage setImages={setImages} height="100%" width="100%" />
           </motion.div>
           <motion.div
             className={`card ${activeCard === 3 ? "active" : "is-inactive"}`}
@@ -55,11 +59,11 @@ const FourCameraScreen = () => {
             transition={{ duration: 0.5, ease: "easeInOut" }}
           >
             {" "}
-            <WebcamImage setImages={setImages} height={480} width={500} />
+            <WebcamImage setImages={setImages} height="100%" width="100%" />
           </motion.div>
         </Grid>
       </Box>
-      <Box mt="10%" width="80%">
+      <Box height="100%" width="100%">
         <MultiShotGallery images={images} />
       </Box>
     </SimpleGrid>

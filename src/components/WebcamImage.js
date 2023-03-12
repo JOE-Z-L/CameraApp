@@ -36,12 +36,11 @@ function WebcamImage({ setImages, width = 400, height = 400 }) {
     console.log(event.target.value);
   };
 
-  ///CAPTURE E DOWNLOAD
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImages((prevImg) => {
       const updatedImages = [...prevImg, imageSrc];
-      setImages(updatedImages); // update images state in parent component
+      setImages(updatedImages);
       return updatedImages;
     });
   }, [webcamRef, setImages]);
@@ -60,8 +59,8 @@ function WebcamImage({ setImages, width = 400, height = 400 }) {
           className="WebcamStream"
         />
         <Flex position="absolute" bottom="2%" w="100%">
-          <HStack bg="transparent" w="100%" justifyContent="space-between">
-            <Box>
+          <HStack bg="transparent" w="100%" justifyContent="center">
+            <Box w="33%">
               {devices.length > 0 && (
                 <Select
                   className="Select"
@@ -82,26 +81,26 @@ function WebcamImage({ setImages, width = 400, height = 400 }) {
                 </Select>
               )}
             </Box>
-            <Box flex="1" textAlign="center">
+            <Box w="33%" textAlign="center">
               <Button
                 variant="outline"
                 borderColor="white"
                 color="white"
-                ml="120px"
                 _hover={{ bg: "red.500", borderColor: "red.500" }}
                 onClick={capture}
+                w="70%"
               >
                 <Icon as={SlCamera}></Icon>
               </Button>
             </Box>
-            <Box>
+            <Box w="33%" textAlign="right">
               <Button
                 variant="outline"
                 borderColor="white"
                 color="white"
-                mr="15px"
                 _hover={{ bg: "red.500", borderColor: "red.500" }}
                 onClick={() => setImages([])}
+                w="70%"
               >
                 Clear All
               </Button>
@@ -112,5 +111,4 @@ function WebcamImage({ setImages, width = 400, height = 400 }) {
     </SimpleGrid>
   );
 }
-
 export default WebcamImage;
