@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useEffect } from "react";
-
+import JSZip from "jszip";
+import { saveAs } from "file-saver";
 import {
   Box,
   Button,
@@ -10,12 +11,13 @@ import {
   FormControl,
   Img,
   Input,
+  HStack,
   SimpleGrid,
   useToast,
 } from "@chakra-ui/react";
 import { Form } from "react-router-dom";
 
-const ScreenShotGallery = ({ images }) => {
+const MultiShotGallery = ({ images }) => {
   const [typedText, setTypedText] = useState("");
   const [filename, setFilename] = useState("image.jpeg");
   const [imagesArray, setImagesArray] = useState([]);
@@ -26,12 +28,12 @@ const ScreenShotGallery = ({ images }) => {
     (src) => {
       const link = document.createElement("a");
       link.href = src;
-      link.download = filename;
+      link.download = `${typedText}.jpeg`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     },
-    [filename]
+    [typedText]
   );
 
   const handleTypedText = (e) => {
@@ -44,7 +46,7 @@ const ScreenShotGallery = ({ images }) => {
   };
 
   useEffect(() => {
-    setImagesArray(images);
+    setImagesArray(images.slice(0, 4));
   }, [images]);
 
   const handleDelete = (index) => {
@@ -62,12 +64,62 @@ const ScreenShotGallery = ({ images }) => {
     console.log(newImagesArray);
   };
 
+  const handleDownloadAll = useCallback(() => {
+    if (imagesArray.length === 0) {
+      toast({
+        title: "No Images Found",
+        description: "Please add images before downloading",
+        status: "warning",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    const folderName = `${typedText}`;
+    const imagesZip = new JSZip();
+
+    imagesArray.forEach((image, index) => {
+      const filename = `image_${index}.jpeg`;
+      imagesZip.file(
+        filename,
+        fetch(image).then((res) => res.blob()),
+        { binary: true }
+      );
+    });
+
+    imagesZip.generateAsync({ type: "blob" }).then((content) => {
+      saveAs(content, `${folderName}.zip`);
+    });
+  }, [imagesArray, typedText]);
+
   return (
     <Box>
+      <HStack mb="2">
+        <Button
+          variant="solid"
+          colorScheme="yellow"
+          onClick={handleDownloadAll}
+        >
+          Download All
+        </Button>
+        <Form>
+          <FormControl>
+            <Input
+              type="text"
+              name="title"
+              bg="white"
+              w="200px"
+              placeholder="File name..."
+              onChange={handleTypedText}
+            />
+          </FormControl>
+        </Form>
+      </HStack>
       <SimpleGrid
         columns={{ sm: 2, md: 3, lg: 4 }}
         spacing="4"
-        minChildWidth="400px"
+        minChildWidth="300px"
       >
         {imagesArray.map((image, index) => (
           <Card key={index}>
@@ -137,4 +189,4 @@ const ScreenShotGallery = ({ images }) => {
   );
 };
 
-export default ScreenShotGallery;
+export default MultiShotGallery;

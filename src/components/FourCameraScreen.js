@@ -4,6 +4,7 @@ import { Grid, SimpleGrid, Box } from "@chakra-ui/react";
 import "./FourCameraScreen.css";
 import WebcamImage from "./WebcamImage";
 import ScreenShotGallery from "./ScreenShotGallery";
+import MultiShotGallery from "./MuiltShotGallery";
 
 const FourCameraScreen = () => {
   const [activeCard, setActiveCard] = useState(0);
@@ -59,7 +60,7 @@ const FourCameraScreen = () => {
         </Grid>
       </Box>
       <Box mt="10%" width="80%">
-        <ScreenShotGallery images={images} />
+        <MultiShotGallery images={images} />
       </Box>
     </SimpleGrid>
   );
