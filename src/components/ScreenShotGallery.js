@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -17,6 +17,7 @@ import { Form } from "react-router-dom";
 const ScreenShotGallery = ({ images }) => {
   const [typedText, setTypedText] = useState("");
   const [filename, setFilename] = useState("image.jpeg");
+  const [imagesArray, setImagesArray] = useState([]);
 
   const toast = useToast();
 
@@ -41,6 +42,24 @@ const ScreenShotGallery = ({ images }) => {
     }
   };
 
+  useEffect(() => {
+    setImagesArray(images);
+  }, [images]);
+
+  const handleDelete = (index) => {
+    const newImagesArray = [...imagesArray];
+    newImagesArray.splice(index, 1);
+    setImagesArray(newImagesArray);
+
+    toast({
+      title: "Image Deleted",
+      description: "The image has been deleted.",
+      status: "warning",
+      duration: 3000,
+      isClosable: true,
+    });
+  };
+
   return (
     <Box>
       <SimpleGrid
@@ -48,7 +67,7 @@ const ScreenShotGallery = ({ images }) => {
         spacing="4"
         minChildWidth="400px"
       >
-        {images.map((image, index) => (
+        {imagesArray.map((image, index) => (
           <Card key={index}>
             <CardBody
               display="flex"
@@ -67,7 +86,7 @@ const ScreenShotGallery = ({ images }) => {
               <ButtonGroup spacing="2">
                 <Button
                   variant="solid"
-                  colorScheme="orange"
+                  colorScheme="blue"
                   onClick={() => handleDownload(image)}
                 >
                   Download
@@ -95,6 +114,13 @@ const ScreenShotGallery = ({ images }) => {
                   }
                 >
                   Edit
+                </Button>
+                <Button
+                  variant="solid"
+                  colorScheme="orange"
+                  onClick={() => handleDelete(index)}
+                >
+                  Delete
                 </Button>
               </ButtonGroup>
             </CardFooter>
