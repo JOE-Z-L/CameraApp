@@ -46,7 +46,12 @@ const MultiShotGallery = ({ images }) => {
   };
 
   useEffect(() => {
-    setImagesArray(images.slice(0, 4));
+    const newImagesArray = images.slice(0, 4);
+    const setOfImages = new Set(newImagesArray);
+    if (newImagesArray.length !== setOfImages.size) {
+      console.log("Duplicate images found.");
+    }
+    setImagesArray(newImagesArray);
   }, [images]);
 
   const handleDelete = (index) => {

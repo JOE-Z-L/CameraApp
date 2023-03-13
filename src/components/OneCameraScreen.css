@@ -19,3 +19,19 @@
     overflow-x: hidden;
     position: relative;
 }
+
+
+.container.animate {
+    animation: myAnimation 1s ease-in-out;
+}
+
+@keyframes myAnimation {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

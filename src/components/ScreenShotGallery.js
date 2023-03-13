@@ -100,6 +100,7 @@ const ScreenShotGallery = ({ images }) => {
                       type="text"
                       name="title"
                       w="100px"
+                      placeholder="Picture Name"
                       onChange={handleTypedText}
                       size="sm"
                     />
