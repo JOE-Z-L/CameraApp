@@ -28,7 +28,7 @@ const OneCamera = () => {
         p={10}
         style={{ display: showAnimation ? "none" : "flex" }}
       >
-        <Box className="camera" width="80vw">
+        <Box className="camera">
           <WebcamImage setImages={setImages} height={854} width={480} />
         </Box>
         <Box className="gallery" pl={8}>

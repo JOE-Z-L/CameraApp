@@ -96,7 +96,7 @@ const MultiShotGallery = ({ images }) => {
     imagesZip.generateAsync({ type: "blob" }).then((content) => {
       saveAs(content, `${folderName}.zip`);
     });
-  }, [imagesArray, typedText]);
+  }, [imagesArray, typedText, toast]);
 
   return (
     <Box>
