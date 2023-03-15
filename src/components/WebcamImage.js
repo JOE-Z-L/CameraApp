@@ -12,14 +12,16 @@ import "./WebcamImage.css";
 import { Icon } from "@chakra-ui/icons";
 import { SlCamera } from "react-icons/sl";
 
-function WebcamImage({ setImages, width = 400, height = 400 }) {
+function WebcamImage({ setImages, width, height }) {
   const webcamRef = useRef(null);
   const [devices, setDevices] = useState([]);
   const [selectedDeviceId, setSelectedDeviceId] = useState("");
+  const [videoWidth, setVideoWidth] = useState(480);
+  const [videoHeight, setVideoHeight] = useState(854);
 
   const videoConstraints = {
-    width: width,
-    height: height,
+    width: videoWidth,
+    height: videoHeight,
     deviceId: selectedDeviceId,
   };
 
@@ -33,7 +35,14 @@ function WebcamImage({ setImages, width = 400, height = 400 }) {
 
   const handleDeviceChange = (event) => {
     setSelectedDeviceId(event.target.value);
-    console.log(event.target.value);
+  };
+
+  const handleWidthChange = (event) => {
+    const width = parseInt(event.target.value);
+    if ([480, 720, 1080, 1440].includes(width)) {
+      setVideoWidth(width);
+      setVideoHeight(width);
+    }
   };
 
   const capture = useCallback(() => {
@@ -47,31 +56,31 @@ function WebcamImage({ setImages, width = 400, height = 400 }) {
 
   return (
     <SimpleGrid columns={1}>
-      <Box height="100%" position="relative">
+      <Box height="90%" position="relative">
         <Webcam
           audio={false}
-          mirrored={true}
-          height={height}
-          width={width}
+          mirrored={false}
+          height={videoHeight}
+          width={videoWidth}
+          minScreenshotHeight={720}
+          minScreenshotWidth={1280}
           ref={webcamRef}
           screenshotFormat="image/jpeg"
           videoConstraints={videoConstraints}
           className="WebcamStream"
         />
-        <Flex position="absolute" bottom="2%" w="100%">
-          <HStack bg="transparent" w="100%" justifyContent="center">
-            <Box w="33%">
+        <Flex position="center" bottom="2%" w="100%">
+          <HStack bg="transparent" w="100%" justifyContent="center" mt={5}>
+            <Box>
               {devices.length > 0 && (
                 <Select
                   className="Select"
                   variant="outline"
-                  borderColor="white"
-                  color="white"
+                  borderColor="black"
+                  color="black"
                   placeholder="Select a Camera"
                   value={selectedDeviceId}
                   onChange={handleDeviceChange}
-                  w="100%"
-                  ml={2}
                 >
                   {devices.map((device) => (
                     <option key={device.deviceId} value={device.deviceId}>
@@ -81,11 +90,29 @@ function WebcamImage({ setImages, width = 400, height = 400 }) {
                 </Select>
               )}
             </Box>
+
+            <Box>
+              <Select
+                bg="white"
+                variant="outline"
+                borderColor="black"
+                color="black"
+                placeholder="Resolution"
+                id="width-input"
+                value={videoWidth}
+                onChange={handleWidthChange}
+              >
+                <option value={480}>480p</option>
+                <option value={720}>720p</option>
+                <option value={1080}>1080p</option>
+                <option value={1440}>1440p</option>
+              </Select>
+            </Box>
+
             <Box w="33%" textAlign="center">
               <Button
-                variant="outline"
-                borderColor="white"
-                color="white"
+                variant="solid"
+                colorScheme="blue"
                 _hover={{ bg: "red.500", borderColor: "red.500" }}
                 onClick={capture}
                 w="70%"
@@ -95,9 +122,8 @@ function WebcamImage({ setImages, width = 400, height = 400 }) {
             </Box>
             <Box w="33%" textAlign="right">
               <Button
-                variant="outline"
-                borderColor="white"
-                color="white"
+                variant="solid"
+                colorScheme="orange"
                 _hover={{ bg: "red.500", borderColor: "red.500" }}
                 onClick={() => setImages([])}
                 w="70%"

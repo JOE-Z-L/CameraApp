@@ -27,10 +27,10 @@ const TwoCamerasScreen = ({ width, height }) => {
             p={10}
           >
             <Box>
-              <WebcamImage width={500} height={480} />
+              <WebcamImage height={854} width={480} />
             </Box>
             <Box>
-              <WebcamImage width={500} height={480} />
+              <WebcamImage height={854} width={480} />
             </Box>
           </SimpleGrid>
         </Flex>

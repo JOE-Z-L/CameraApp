@@ -24,7 +24,7 @@ const FourCameraScreen = () => {
       {showAnimation && (
         <OrangeCoverAnimation onAnimationComplete={onAnimationComplete} />
       )}
-      <SimpleGrid columns={2} spacing={4} height="70%" mt="2%">
+      <SimpleGrid columns={2} spacing={4} mt="2%">
         <Box height="100%">
           <Grid
             templateColumns="repeat(6, 1fr)"
@@ -39,7 +39,7 @@ const FourCameraScreen = () => {
               layout
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
-              <WebcamImage setImages={setImages} height="100%" width="100%" />
+              <WebcamImage setImages={setImages} />
             </motion.div>
             <motion.div
               className={`card ${activeCard === 1 ? "active" : "is-inactive"}`}
@@ -49,7 +49,7 @@ const FourCameraScreen = () => {
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
               {" "}
-              <WebcamImage setImages={setImages} height="100%" width="100%" />
+              <WebcamImage setImages={setImages} />
             </motion.div>
             <motion.div
               className={`card ${activeCard === 2 ? "active" : "is-inactive"}`}
@@ -59,7 +59,7 @@ const FourCameraScreen = () => {
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
               {" "}
-              <WebcamImage setImages={setImages} height="100%" width="100%" />
+              <WebcamImage setImages={setImages} />
             </motion.div>
             <motion.div
               className={`card ${activeCard === 3 ? "active" : "is-inactive"}`}
@@ -69,7 +69,7 @@ const FourCameraScreen = () => {
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
               {" "}
-              <WebcamImage setImages={setImages} height="100%" width="100%" />
+              <WebcamImage setImages={setImages} />
             </motion.div>
           </Grid>
         </Box>
